@@ -1,3 +1,41 @@
+class Quiz:
+    def __init__(self):
+        self.name = ""
+        self.description = ""
+        self.questions = []
+        self.score = 0
+        self.correct_count = 0
+        self.total_points = 0
+
+    def print_header(self):
+        print("\n\n*******************************************")
+        print(f"QUIZ NAME: {self.name}")
+        print(f"DESCRIPTION: {self.description}")
+        print(f"QUESTIONS: {len(self.questions)}")
+        print(f"TOTAL POINTS: {self.total_points}")
+        print("*******************************************\n")
+
+    def print_results(self):
+        print("*******************************************")
+        
+        print("*******************************************\n")
+
+    def take_quiz(self):
+        self.score = 0
+        self.correct_count = 0
+
+        self.print_header()
+
+        for q in self.questions:
+            q.ask()
+            if (q.is_correct):
+                self.correct_count += 1
+                self.score += q.points
+            print("------------------------------------------------\n")
+
+        return (self.score, self.correct_count, self.total_points)
+
+
 class Question:
     def __init__(self):
         self.points = 0
@@ -60,28 +98,34 @@ class Answer:
 
 
 if __name__ == "__main__":
-    q1 = QuestionTF()
-    q1.text = "Broccoli is good for you"
-    q1.points = 5
-    q1.correct_answer = "t"
-    q1.ask()
-    q2 = QuestioncMC()
-    q2.text = "What is 2+2?"
-    q2.points = 10
-    q2.correct_answer = "b"
-    ans = Answer()
-    ans.name = "a"
-    ans.text = "3"
-    q2.answers.append(ans)
-    ans = Answer()
-    ans.name = "b"
-    ans.text = "4"
-    q2.answers.append(ans)
-    ans = Answer()
-    ans.name = "c"
-    ans.text = "5"
-    q2.answers.append(ans)
-    q2.ask()
+     qz = Quiz()
+     qz.name = "Sample Quiz"
+     qz.description = "This is a sample quiz!"
 
-    print(q1.is_correct)
-    print(q2.is_correct)
+     q1 = QuestionTF()
+     q1.text = "Broccoli is good for you"
+     q1.points = 5
+     q1.correct_answer = "t"
+     qz.questions.append(q1)
+
+     q2 = QuestioncMC()
+     q2.text = "What is 2+2?"
+     q2.points = 10
+     q2.correct_answer = "b"
+     ans = Answer()
+     ans.name = "a"
+     ans.text = "3"
+     q2.answers.append(ans)
+     ans = Answer()
+     ans.name = "b"
+     ans.text = "4"
+     q2.answers.append(ans)
+     ans = Answer()
+     ans.name = "c"
+     ans.text = "5"
+     q2.answers.append(ans)
+     qz.questions.append(q2)
+
+     qz.total_points = q1.points + q2.points
+     result = qz.take_quiz()
+     print(result)
